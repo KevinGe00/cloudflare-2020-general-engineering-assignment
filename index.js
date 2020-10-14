@@ -36,9 +36,10 @@ class LinksTransformer {
 
   async element(element) {
     links.forEach((link) => {
-      element.append(`<a href=${link.url} target="_blank">${link.name}</a>`, {
-        html: true,
-      })
+      element.append(
+        `<a href=${link.url} target="_blank">${link.name}</a>`, 
+        {html: true}
+      )
     })
   }
 }
@@ -81,14 +82,13 @@ class SocialLinksTransformer {
 
   async element(element) {
     socialLinks.forEach((social) => {
-      element.append
-      (
+      element.append(
         `
         <a href=${social.url} target="_blank">
           <img src=${social.svg}></img>
         </a>
         `, 
-        {html: true,}
+        {html: true}
       )
     })
   }
@@ -98,12 +98,11 @@ class SocialLinksTransformer {
 const rewriter = new HTMLRewriter()
   .on('div#links', new LinksTransformer(links))
   .on('div#profile', new RemoveAttributeTransformer('style'))
-  .on(
-    'img#avatar',
+  .on('img#avatar',
     new SetAttributeTransformer(
       'src',
       'https://media-exp1.licdn.com/dms/image/C4E03AQHr2TPeqBpAGQ/profile-displayphoto-shrink_400_400/0?e=1608163200&v=beta&t=o29mvmv0XbPu0hoIlRupfC-HNSmgwQBj55MprMAZIU0',
-    ),
+    )
   )
   .on('h1#name', new SetInnerContentTransformer('Some Links'))
   .on('div#social', new RemoveAttributeTransformer('style'))
@@ -118,13 +117,15 @@ addEventListener('fetch', (event) => {
 })
 
 async function handleRequest(request) {
+  
   if (request.url.endsWith('/links')) {
     const json = JSON.stringify(links)
 
     return new Response(json, {
       headers: { 'content-type': 'application/json;charset=UTF-8' },
     })
-  } else {
+  } 
+  else {
     const staticLink = 'https://static-links-page.signalnerve.workers.dev'
     const staticResp = await fetch(staticLink, {
       headers: { 'content-type': 'text/html' },
