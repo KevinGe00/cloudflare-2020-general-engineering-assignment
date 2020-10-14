@@ -1,5 +1,5 @@
-name = "my-worker"
-type = "javascript"
+name = "links"
+type = "webpack"
 account_id = "0c2cc58ac688425c01cf2498de3e3c14"
 workers_dev = true
 route = ""
